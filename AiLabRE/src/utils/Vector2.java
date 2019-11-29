@@ -79,23 +79,24 @@ public class Vector2 {
 	}
 	
 	
-	public void add(Vector2 other) {
+	public Vector2 add(Vector2 other) {
 		
-		x += other.getX();
-		y += other.getY();
-	}
-	
-	public void sub(Vector2 other) {
 		
-		x -= other.getX();
-		y -= other.getY();
+		return new Vector2(x + other.getX(),y + other.getY());
+				
 	}
 	
-	public void mult(double t) {
-		x *= t;
-		y *= t;
+	public Vector2 sub(Vector2 other) {
+		
+		return new Vector2(x - other.getX(),y - other.getY());
 	}
 	
+	public Vector2 mult(double t) {
+		return new Vector2(x *t,y * t);
+	}
+	public Vector2 div(double t) {
+		return new Vector2(x /t,y / t);
+	}
 	public double getX() {
 		return x;
 	}

@@ -9,6 +9,8 @@ public class Bot implements BotInterface{
 	Vector2 pos;
 	Vector2 dir;
 	double weight;
+	double totalWeight;
+	Vector2 com;
 	ArrayList<TrusterInterface> trusters = new ArrayList<TrusterInterface>();
 	
 	
@@ -16,6 +18,8 @@ public class Bot implements BotInterface{
 		this.pos = pos;
 		this.dir = dir;
 		this.weight = weight;
+		totalWeight = calcTotalWeight();
+		com = calcCenterOfMass();
 	}
 	
 	
@@ -89,7 +93,46 @@ public class Bot implements BotInterface{
 		// TODO Auto-generated method stub
 		truster.setBot(this);
 		trusters.add(truster);
+		com = calcCenterOfMass();
 	}
+	
+	public double getTotalWeight() {
+		
+		return totalWeight;
+		
+	}
+	public double calcTotalWeight() {
+		double wt = weight;
+		
+		for (TrusterInterface t : getAllTrusters()) {
+			
+			wt += t.getWeight();
+			
+		}
+		return wt;
+	}
+	public Vector2 getCenterOfMass() {
+		return com;
+	}
+	
+	public Vector2 calcCenterOfMass() {
+		Vector2 centerOfMass = new  Vector2(0,0);
+		Vector2 center = new  Vector2(0,0);
+		for (TrusterInterface t : getAllTrusters()) {
+			
+			center.add(t.getPos());
+		}
+		centerOfMass = center.div(getAllTrusters().size()+1);
+		
+		
+		for (TrusterInterface t : getAllTrusters()) {
+			
+			centerOfMass.add(t.getPos().mult((t.getWeight()/totalWeight)));
+		}
+		
+		return centerOfMass;
+	}
+	
 	
 	
 
