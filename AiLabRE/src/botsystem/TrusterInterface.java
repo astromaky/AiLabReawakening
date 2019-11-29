@@ -17,9 +17,11 @@ public interface TrusterInterface {
 	public double getCurrentTrust();
 	public double getWeight();
 	
+	
+	public void setBot(Bot b);
 	public void setPos(Vector2 pos);
 	public void setDirection(Vector2 dir);
 	public void setMaxTrust(double trust);
 	public void setCurrentTrust(double trust);
-	public double setWeight(double weight);
+	public void setWeight(double weight);
 }

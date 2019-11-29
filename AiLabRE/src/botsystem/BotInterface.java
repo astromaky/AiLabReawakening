@@ -18,10 +18,10 @@ public interface BotInterface {
 	
 	
 	public Vector2 getPos();
-	public void setPos();
+	public void setPos(Vector2 pos);
 	
 	public Vector2 getDir();
-	public void setDir();
+	public void setDir(Vector2 dir);
 	
 	public double getWeight();
 	public void setWeight(double d);

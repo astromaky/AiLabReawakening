@@ -1,86 +1,95 @@
 package botsystem;
 
-import java.awt.Graphics2D;
 import java.util.ArrayList;
 
 import utils.Vector2;
 
-public class Bot implements BotInterface {
-
-	public final static int SIZE = 100;
+public class Bot implements BotInterface{
 	
+	Vector2 pos;
+	Vector2 dir;
+	double weight;
+	ArrayList<TrusterInterface> trusters = new ArrayList<TrusterInterface>();
+	
+	
+	public Bot(Vector2 pos,Vector2 dir,double weight) {
+		this.pos = pos;
+		this.dir = dir;
+		this.weight = weight;
+	}
+	
+	
+
 	@Override
 	public Vector2 getPos() {
-		// TODO Auto-generated method stub
-		return null;
+		
+		return pos;
 	}
 
 	@Override
-	public void setPos() {
-		// TODO Auto-generated method stub
+	public void setPos(Vector2 pos) {
+		this.pos = pos;
 		
 	}
 
 	@Override
 	public Vector2 getDir() {
-		// TODO Auto-generated method stub
-		return null;
+		return dir;
 	}
 
 	@Override
-	public void setDir() {
-		// TODO Auto-generated method stub
-		
+	public void setDir(Vector2 dir) {
+		this.dir = dir;	
 	}
 
 	@Override
 	public double getWeight() {
 		// TODO Auto-generated method stub
-		return 0;
+		return weight;
 	}
 
 	@Override
 	public void setWeight(double d) {
-		// TODO Auto-generated method stub
+		weight = d;
 		
 	}
 
 	@Override
 	public int getTrusterCount() {
 		// TODO Auto-generated method stub
-		return 0;
+		return trusters.size();
 	}
 
 	@Override
 	public TrusterInterface getTruster(int index) {
 		// TODO Auto-generated method stub
-		return null;
+		return trusters.get(index);
 	}
 
 	@Override
 	public ArrayList<TrusterInterface> getAllTrusters() {
 		// TODO Auto-generated method stub
-		return null;
+		return trusters;
 	}
 
 	@Override
 	public void removeTruster(int index) {
-		// TODO Auto-generated method stub
+		trusters.remove(index);
 		
 	}
 
 	@Override
 	public void removeTruster(TrusterInterface truster) {
-		// TODO Auto-generated method stub
+		trusters.remove(truster);
 		
 	}
 
 	@Override
 	public void addTruster(TrusterInterface truster) {
 		// TODO Auto-generated method stub
-		
+		truster.setBot(this);
+		trusters.add(truster);
 	}
-	
 	
 	
 
