@@ -17,7 +17,7 @@ public class Main {
 	
 	public static void main(String args[]) {
 		SaveUtils.load();
-		Bot bot = new Bot();
+		Bot bot = new Bot(new Vector2(0), new Vector2(0), 1);
 		
 		
 		JFrame f = new JFrame(TITLE);
