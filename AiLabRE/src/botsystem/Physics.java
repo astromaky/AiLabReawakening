@@ -8,8 +8,8 @@ public class Physics {
 	
 	
 	
-	public double gravity = 0.001;
-	public double inertia = 1;
+	public static double gravity = 1;
+	public static double inertia = 1;
 	
 	
 	
@@ -17,7 +17,7 @@ public class Physics {
 	
 	
 	
-	public void calcPhysics(Bot bot) {
+	public static void calcPhysics(Bot bot) {
 		
 		// CALC WEIGHT
 		
@@ -42,7 +42,7 @@ public class Physics {
 	}
 	
 	
-	public void calcGravity(Bot bot) {
+	public static void calcGravity(Bot bot) {
 		Vector2 centerOfMass = bot.getCenterOfMass();
 		double totalMass = bot.totalWeight;
 		// TODO BOT METHODS GET CENTER OF MASS AND GET TOTAL MASS
@@ -51,16 +51,19 @@ public class Physics {
 		
 		double angle = Vector2.getAngle(centerOfMass, comMovement);
 		
-		
+		//System.out.println("COMMove "+comMovement.toString()+"   CenterOfMass"+centerOfMass.toString());
 		bot.setDir(Vector2.turnDeg(bot.getDir(),angle));
 		double comMag = centerOfMass.magnitude();
-		
-		Vector2 point = comMovement.mult(-1).getNormalized().mult(comMag).add(centerOfMass);
+		//System.out.println("MAG"+comMag);
+		System.out.println("A"+ comMovement.mult(-1).getNormalized());
+		System.out.println("B"+ comMag);
+		Vector2 point = comMovement.mult(-1).getNormalized().mult(comMag).add(comMovement);
+		System.out.println(point.toString());
 		bot.setPos(bot.getPos().add(point));
 	}
 	
 	
-	public void calcTrust(Bot bot) {
+	public static void calcTrust(Bot bot) {
 		Vector2 centerOfMass = bot.getCenterOfMass();
 		double totalMass = bot.totalWeight;
 		

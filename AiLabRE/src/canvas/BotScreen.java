@@ -1,8 +1,10 @@
 package canvas;
 
 import java.awt.Canvas;
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.image.BufferedImage;
 
 import botsystem.Bot;
 import botsystem.TrusterInterface;
@@ -19,9 +21,14 @@ public class BotScreen extends Canvas {
 		bot = b;
 	}
 	
+	public static int i = 0;
 	public void paint(Graphics g) {
-		Graphics2D g2d = (Graphics2D) g;
-		g2d.drawOval((int)bot.getPos().getX() - RAD, (int)bot.getPos().getY() - RAD, RAD*2, RAD*2);
+		
+		
+		BufferedImage bi = new BufferedImage(1000, 1000, BufferedImage.TYPE_INT_RGB);
+		Graphics2D g2d = (Graphics2D) bi.getGraphics();
+		g2d.setColor(Color.red);
+		g2d.drawOval((int)bot.getPos().getX()- RAD, (int)bot.getPos().getY() - RAD, RAD*2, RAD*2);
 		g2d.drawLine((int)bot.getPos().getX() + (int)bot.getDir().getNormalized().getX() * RAD, (int)bot.getPos().getY() + (int)bot.getDir().getNormalized().getY() * RAD, (int)bot.getPos().getX() + (int)bot.getDir().getNormalized().getX() * -RAD, (int)bot.getPos().getY() + (int)bot.getDir().getNormalized().getY() * -RAD);
 		for (TrusterInterface t : bot.getAllTrusters()) {
 			Vector2 pos = t.getAbsolutePos();
@@ -32,6 +39,7 @@ public class BotScreen extends Canvas {
 			drawLine(g2d,Vector2.add(pos ,Vector2.turnDeg(ruler, 30)),Vector2.add(pos ,Vector2.turnDeg(ruler, 150)));
 			drawLine(g2d, pos, bot.getPos());
 		}
+		g.drawImage(bi, 0, 0, null);
 	}
 	
 	private void drawLine(Graphics2D g2d, Vector2 v1,Vector2 v2) {

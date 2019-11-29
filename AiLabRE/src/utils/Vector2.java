@@ -73,8 +73,8 @@ public class Vector2 {
 	public Vector2 getNormalized() {
 		
 		Vector2 re = clone();
-		re.mult( 1/magnitude());
-		return re;
+	
+		return 	re.mult( 1/magnitude());
 				
 	}
 	
@@ -86,6 +86,10 @@ public class Vector2 {
 				
 	}
 	
+	
+	public String toString() {
+		return "Vector ["+x+"|"+y+"]";
+	}
 	public Vector2 sub(Vector2 other) {
 		
 		return new Vector2(x - other.getX(),y - other.getY());

@@ -32,6 +32,7 @@ public class Bot implements BotInterface{
 
 	@Override
 	public void setPos(Vector2 pos) {
+		//System.out.println(""+pos.toString());
 		this.pos = pos;
 		
 	}
@@ -120,7 +121,7 @@ public class Bot implements BotInterface{
 		Vector2 center = new  Vector2(0,0);
 		for (TrusterInterface t : getAllTrusters()) {
 			
-			center.add(t.getPos());
+			center = center.add(t.getPos());
 		}
 		centerOfMass = center.div(getAllTrusters().size()+1);
 		
@@ -129,7 +130,7 @@ public class Bot implements BotInterface{
 			
 			centerOfMass.add(t.getPos().mult((t.getWeight()/totalWeight)));
 		}
-		
+		System.out.println("CALC CENTER"+ centerOfMass);
 		return centerOfMass;
 	}
 	

@@ -38,7 +38,7 @@ public class Truster implements TrusterInterface{
 	public Vector2 getAbsolutePos() {
 		Vector2 botPos = bot.getPos();
 		
-		return null;
+		return botPos.add(Vector2.turnDeg(pos, Vector2.getAngle(dir, new Vector2(0,1))));
 	}
 
 	@Override
