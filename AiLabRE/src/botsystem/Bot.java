@@ -10,7 +10,7 @@ public class Bot implements BotInterface{
 	Vector2 dir;
 	double weight;
 	double totalWeight;
-	Vector2 com;
+	
 	ArrayList<TrusterInterface> trusters = new ArrayList<TrusterInterface>();
 	
 	
@@ -19,19 +19,25 @@ public class Bot implements BotInterface{
 		this.dir = dir;
 		this.weight = weight;
 		totalWeight = calcTotalWeight();
-		com = calcCenterOfMass();
+		
 	}
 	
 	public void turnAroundMiddle(double d) {
-		Vector2 cent = getCenter();
-		Vector2 turn = Vector2.add(pos.mult(-1), cent);
+		Vector2 cent = getAbsoluteCenter();
+		Vector2 turn = pos.sub(cent);
 		turn = Vector2.turnDeg(turn, d);
-		Vector2 turn2 = Vector2.add( Vector2.add(pos, dir).mult(-1), cent);
+		/*
+		Vector2 turn2 = Vector2.add(pos, dir.getNormalized()).sub(cent);
 		turn2 = Vector2.turnDeg(turn2, d);
-		dir = Vector2.add(turn.mult(-1), turn2);
-		pos = turn;
+		dir = Vector2.add(turn.mult(-1), turn2).getNormalized();
+		*/
+		pos = turn.add(cent);
+		dir = Vector2.turnDeg(dir,-d);
+		
 	}
 
+	
+	
 	@Override
 	public Vector2 getPos() {
 		
@@ -103,7 +109,7 @@ public class Bot implements BotInterface{
 		truster.setBot(this);
 		trusters.add(truster);
 		totalWeight = calcTotalWeight();
-		com = calcCenterOfMass();
+	
 	}
 	
 	public double getTotalWeight() {
@@ -121,11 +127,10 @@ public class Bot implements BotInterface{
 		}
 		return wt;
 	}
-	public Vector2 getCenterOfMass() {
-		return com;
-	}
+	
 	
 	public Vector2 calcCenterOfMass() {
+		System.out.println("WAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
 		Vector2 centerOfMass = new  Vector2(0,0);
 		Vector2 center = new  Vector2(0,0);
 		for (TrusterInterface t : getAllTrusters()) {
@@ -134,7 +139,7 @@ public class Bot implements BotInterface{
 		}
 		centerOfMass = center.div(getAllTrusters().size()+1);
 		
-		
+	
 		for (TrusterInterface t : getAllTrusters()) {
 			
 			centerOfMass.add(t.getPos().mult((t.getWeight()/totalWeight)));
@@ -151,7 +156,28 @@ public class Bot implements BotInterface{
 		}
 		return center.div(getAllTrusters().size()+1);
 	}
+	public Vector2 getAbsoluteCenter() {
+		Vector2 center =pos;
+		for (TrusterInterface t : getAllTrusters()) {
+			
+			center = center.add(t.getAbsolutePos());
+		}
+		return center.div(getAllTrusters().size()+1);
+	}
 	
+	public Vector2 getAbsoluteCenterOfMass() {
+		Vector2 subVec = getAbsoluteCenter();
+		Vector2 centerOfMass = getAbsoluteCenter();
+		
+		centerOfMass = centerOfMass.add(pos.sub(subVec).mult((getWeight()/totalWeight)));
+		
+		for (TrusterInterface t : getAllTrusters()) {
+			
+			centerOfMass = centerOfMass.add(t.getAbsolutePos().sub(subVec).mult((t.getWeight()/totalWeight)));
+		}
+		System.out.println("CALC CENTER"+ centerOfMass);
+		return centerOfMass;
+	}
 	
 
 }

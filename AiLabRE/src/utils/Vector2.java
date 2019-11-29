@@ -26,6 +26,11 @@ public class Vector2 {
 		return Math.sqrt(x*x+y*y);
 				
 	}
+	public double sqrtmagnitude() {
+		
+		return x*x+y*y;
+				
+	}
 	
 	public Vector2 clone() {
 		return new Vector2(x,y);
@@ -85,7 +90,27 @@ public class Vector2 {
 		return new Vector2(x + other.getX(),y + other.getY());
 				
 	}
-	
+	public final static float kEpsilonNormalSqrt = 1e-15f;
+	public static double Angle(Vector2 from, Vector2 to)
+    {
+        // sqrt(a) * sqrt(b) = sqrt(a * b) -- valid for real numbers
+        float denominator = (float)Math.sqrt(from.sqrtmagnitude() * to.sqrtmagnitude());
+        if (denominator < kEpsilonNormalSqrt)
+            return 0F;
+
+        double dot = dotProduct(from, to) / denominator;
+        if (dot > 1)
+        	dot = 1;
+        if (dot < -1)
+        	dot = -1;
+        return  Math.toDegrees((float)Math.acos(dot));
+    }
+	public static double SignedAngle(Vector2 from, Vector2 to)
+    {
+        double unsigned_angle = Angle(from, to);
+        double sign = Math.signum(from.x * to.y - from.y * to.x);
+        return unsigned_angle * sign;
+    }
 	
 	public String toString() {
 		return "Vector ["+x+"|"+y+"]";
