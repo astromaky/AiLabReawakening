@@ -48,6 +48,7 @@ public class Vector2 {
 		return new Vector2(v1.getX()+v2.getX(),v1.getY()+v2.getY());
 	}
 	
+
 	public static Vector2 mult(Vector2 v1,double t) {
 		
 		return new Vector2(v1.getX()*t,v1.getY()*t);
@@ -55,7 +56,8 @@ public class Vector2 {
 	
 	public static double getAngle(Vector2 v1,Vector2 v2) {
 		
-		return dotProduct(v1, v2)/(v1.magnitude()*v2.magnitude());
+		return Math.atan2(v2.y, v2.x) -  Math.atan2(v1.y, v1.x);
+		//return dotProduct(v1, v2)/(v1.magnitude()*v2.magnitude());
 	}	
 	
 	public static Vector2 turnDeg(Vector2 v1,double angle) {
@@ -66,6 +68,14 @@ public class Vector2 {
 	
 	public static double dotProduct(Vector2 v1,Vector2 v2) {
 		return v1.x *v2.x + v1.y * v2.y;
+	}
+	
+	public Vector2 getNormalized() {
+		
+		Vector2 re = clone();
+		re.mult( 1/magnitude());
+		return re;
+				
 	}
 	
 	
