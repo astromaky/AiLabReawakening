@@ -13,7 +13,12 @@ public class Vector2 {
 		this.x = x;
 		this.y = y;
 	}
-	
+
+	public Vector2(double angle) {
+		x = 0;
+		y = 1;
+		turnDeg(this, angle);
+	}
 	
 	
 	public double magnitude() {
@@ -47,6 +52,22 @@ public class Vector2 {
 		
 		return new Vector2(v1.getX()*t,v1.getY()*t);
 	}	
+	
+	public static double getAngle(Vector2 v1,Vector2 v2) {
+		
+		return dotProduct(v1, v2)/(v1.magnitude()*v2.magnitude());
+	}	
+	
+	public static Vector2 turnDeg(Vector2 v1,double angle) {
+		
+		double theta =  Math.toRadians(angle);
+		return new Vector2(Math.cos(theta)*v1.x-Math.sin(theta)*v1.y,Math.sin(theta)*v1.x+Math.cos(theta)*v1.y);
+	}
+	
+	public static double dotProduct(Vector2 v1,Vector2 v2) {
+		return v1.x *v2.x + v1.y * v2.y;
+	}
+	
 	
 	public void add(Vector2 other) {
 		

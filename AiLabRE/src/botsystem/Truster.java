@@ -36,7 +36,8 @@ public class Truster implements TrusterInterface{
 
 	@Override
 	public Vector2 getAbsolutePos() {
-		// TODO Auto-generated method stub
+		Vector2 botPos = bot.getPos();
+		
 		return null;
 	}
 
