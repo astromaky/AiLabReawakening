@@ -11,8 +11,8 @@ import ai.main.NeuralNetwork;
 
 public class SaveUtils {
 	
-	private final static String path = "theOne.net";
-	private final static int[] struct = {4,4,4};
+	private final static String PATH = "theOne.net";
+	private final static int[] STRUCT = {4,4,4};
 	private static NeuralNetwork net;
 	
 	public static NeuralNetwork getNeuralNet() {
@@ -23,18 +23,18 @@ public class SaveUtils {
 	}
 	
 	public static void load() {
-		File f = new File(path);
+		File f = new File(PATH);
 		try {
 			Scanner s = new Scanner(f);
 			net = new NeuralNetwork(s.next());
 			s.close();
 		} catch (FileNotFoundException e) {
-			net = new NeuralNetwork(struct);
+			net = new NeuralNetwork(STRUCT);
 		}
 	}
 	
 	public static void save() {
-		File f = new File(path);
+		File f = new File(PATH);
 		f.delete();
 		try {
 			BufferedWriter output = new BufferedWriter(new FileWriter(f, false));
