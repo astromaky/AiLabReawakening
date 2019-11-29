@@ -8,8 +8,8 @@ public class Physics {
 	
 	
 	
-	public static double gravity = 1;
-	public static double inertia = 1;
+	public static double gravity = 0.1;
+	public static double inertia = 100;
 	
 	
 	
@@ -43,40 +43,58 @@ public class Physics {
 	
 	
 	public static void calcGravity(Bot bot) {
-		Vector2 centerOfMass = bot.getCenterOfMass();
+		double botAngle = Vector2.getAngle(bot.getDir(), new Vector2(0,1));
+		Vector2 centerOfMass = Vector2.turnDeg(bot.getCenterOfMass(),botAngle);
 		double totalMass = bot.totalWeight;
-		// TODO BOT METHODS GET CENTER OF MASS AND GET TOTAL MASS
-		Vector2 comMovement = centerOfMass.clone();
-		comMovement = comMovement.add(new Vector2(0,-totalMass*gravity));
 		
-		double angle = Vector2.getAngle(centerOfMass, comMovement);
+		
+		Vector2 comMovement = centerOfMass.clone();
+		
+		comMovement = comMovement.add(new Vector2(0,totalMass*gravity));
+		
+		double angle = Vector2.getAngle(comMovement, centerOfMass);
 		
 		//System.out.println("COMMove "+comMovement.toString()+"   CenterOfMass"+centerOfMass.toString());
-		bot.setDir(Vector2.turnDeg(bot.getDir(),angle));
+		bot.setDir(Vector2.turnDeg(bot.getDir(),angle*centerOfMass.magnitude()/inertia));
 		double comMag = centerOfMass.magnitude();
 		//System.out.println("MAG"+comMag);
+		
+		Vector2 point = comMovement.mult(-1).getNormalized().mult(comMag).add(comMovement);
+		
+		bot.setPos(bot.getPos().add(point));
+		
+		/*
+		System.out.println("totalMass"+totalMass);
+		System.out.println("ANG"+ angle);
+		System.out.println("DIR"+ bot.getDir());
 		System.out.println("A"+ comMovement.mult(-1).getNormalized());
 		System.out.println("B"+ comMag);
-		Vector2 point = comMovement.mult(-1).getNormalized().mult(comMag).add(comMovement);
-		System.out.println(point.toString());
-		bot.setPos(bot.getPos().add(point));
+		System.out.println("P"+point);
+		System.out.println(point.toString());*/
 	}
 	
 	
 	public static void calcTrust(Bot bot) {
-		Vector2 centerOfMass = bot.getCenterOfMass();
-		double totalMass = bot.totalWeight;
+		double botAngle = Vector2.getAngle(bot.getDir(), new Vector2(0,1));
+		Vector2 centerOfMass = Vector2.turnDeg(bot.getCenterOfMass(),botAngle);
+	
 		
 		for (TrusterInterface t : bot.getAllTrusters()) {
 			Vector2 comMovement = centerOfMass.clone();
-			Vector2 dir = t.getDirection();
-			comMovement = comMovement.add(dir.mult(t.getCurrentTrust()));
-			double angle = Vector2.getAngle(centerOfMass, comMovement);
+			
+			comMovement = comMovement.add(Vector2.turnDeg(t.getDirection(),botAngle).mult(t.getCurrentTrust()));
+			
+			double angle = Vector2.getAngle(comMovement, centerOfMass);
+			
+			//System.out.println("COMMove "+comMovement.toString()+"   CenterOfMass"+centerOfMass.toString());
 			bot.setDir(Vector2.turnDeg(bot.getDir(),angle));
 			double comMag = centerOfMass.magnitude();
+			//System.out.println("MAG"+comMag);
 			
-			Vector2 point = comMovement.mult(-1).getNormalized().mult(comMag).add(centerOfMass);
+			Vector2 point = comMovement.mult(-1).getNormalized().mult(comMag).add(comMovement);
+			
 			bot.setPos(bot.getPos().add(point));
+			
 		}
 	}
 	

@@ -20,7 +20,7 @@ public class Main {
 	
 	public static void main(String args[]) {
 		SaveUtils.load();
-		Bot bot = new Bot(new Vector2(100, 100), new Vector2(0), 1);
+		Bot bot = new Bot(new Vector2(100, 100), new Vector2(0), 100);
 		
 		bot.addTruster(new Truster(new Vector2(50, 50), new Vector2(0), 1, 10));
 		BotScreen bs = new BotScreen(bot);

@@ -94,6 +94,7 @@ public class Bot implements BotInterface{
 		// TODO Auto-generated method stub
 		truster.setBot(this);
 		trusters.add(truster);
+		totalWeight = calcTotalWeight();
 		com = calcCenterOfMass();
 	}
 	

@@ -56,7 +56,7 @@ public class Vector2 {
 	
 	public static double getAngle(Vector2 v1,Vector2 v2) {
 		
-		return Math.atan2(v2.y, v2.x) -  Math.atan2(v1.y, v1.x);
+		return Math.toDegrees(Math.atan2(v2.y, v2.x) -  Math.atan2(v1.y, v1.x));
 		//return dotProduct(v1, v2)/(v1.magnitude()*v2.magnitude());
 	}	
 	
