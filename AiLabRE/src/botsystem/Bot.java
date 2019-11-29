@@ -135,6 +135,14 @@ public class Bot implements BotInterface{
 		return centerOfMass;
 	}
 	
+	public Vector2 getCenter() {
+		Vector2 center = new  Vector2(0,0);
+		for (TrusterInterface t : getAllTrusters()) {
+			
+			center = center.add(t.getPos());
+		}
+		return center.div(getAllTrusters().size()+1);
+	}
 	
 	
 

@@ -8,7 +8,7 @@ public class Physics {
 	
 	
 	
-	public static double gravity = 0.1;
+	public static double gravity = 0.01;
 	public static double inertia = 100;
 	
 	
@@ -36,7 +36,7 @@ public class Physics {
 			centerOfMass.add(Vector2.mult(t.getPos(), t.getWeight()));
 		}
 		*/
-		
+		System.out.println(bot.getDir().getNormalized());
 		
 		
 	}
@@ -55,7 +55,7 @@ public class Physics {
 		double angle = Vector2.getAngle(comMovement, centerOfMass);
 		
 		//System.out.println("COMMove "+comMovement.toString()+"   CenterOfMass"+centerOfMass.toString());
-		bot.setDir(Vector2.turnDeg(bot.getDir(),angle*centerOfMass.magnitude()/inertia));
+		bot.setDir(Vector2.turnDeg(bot.getDir(),angle));
 		double comMag = centerOfMass.magnitude();
 		//System.out.println("MAG"+comMag);
 		

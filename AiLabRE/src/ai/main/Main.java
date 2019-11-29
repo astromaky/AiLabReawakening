@@ -22,7 +22,7 @@ public class Main {
 		SaveUtils.load();
 		Bot bot = new Bot(new Vector2(100, 100), new Vector2(0), 100);
 		
-		bot.addTruster(new Truster(new Vector2(50, 50), new Vector2(0), 1, 10));
+		bot.addTruster(new Truster(new Vector2(50, 50), new Vector2(0), 1, 1));
 		BotScreen bs = new BotScreen(bot);
 		JFrame f = new JFrame(TITLE);
 		f.add(bs);
