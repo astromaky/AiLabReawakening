@@ -22,7 +22,15 @@ public class Bot implements BotInterface{
 		com = calcCenterOfMass();
 	}
 	
-	
+	public void turnAroundMiddle(double d) {
+		Vector2 cent = getCenter();
+		Vector2 turn = Vector2.add(pos.mult(-1), cent);
+		turn = Vector2.turnDeg(turn, d);
+		Vector2 turn2 = Vector2.add( Vector2.add(pos, dir).mult(-1), cent);
+		turn2 = Vector2.turnDeg(turn2, d);
+		dir = Vector2.add(turn.mult(-1), turn2);
+		pos = turn;
+	}
 
 	@Override
 	public Vector2 getPos() {
