@@ -8,7 +8,7 @@ public class Truster implements TrusterInterface{
 	Vector2 pos;
 	Vector2 dir;
 	double maxTrust;
-	double currentTrust;
+	double currentTrust = 1;
 	double weight;
 	
 	

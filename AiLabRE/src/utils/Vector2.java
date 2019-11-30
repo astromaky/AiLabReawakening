@@ -31,6 +31,9 @@ public class Vector2 {
 		return x*x+y*y;
 				
 	}
+	public boolean equals(Vector2 other) {
+		return (other.x ==x && other.y == y);
+	}
 	
 	public Vector2 clone() {
 		return new Vector2(x,y);

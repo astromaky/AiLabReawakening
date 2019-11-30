@@ -22,8 +22,8 @@ public class Main {
 		SaveUtils.load();
 		Bot bot = new Bot(new Vector2(550, 500), new Vector2(0), 1);
 		
-		bot.addTruster(new Truster(new Vector2(50, 50), new Vector2(0), 1,5));
-		bot.addTruster(new Truster(new Vector2(-50, 50), new Vector2(0), 1,5));
+		bot.addTruster(new Truster(new Vector2(50, 0), new Vector2(0,1), 10,5));
+		bot.addTruster(new Truster(new Vector2(-50, 0), new Vector2(0,-1), 10,5));
 		BotScreen bs = new BotScreen(bot);
 		JFrame f = new JFrame(TITLE);
 		f.add(bs);

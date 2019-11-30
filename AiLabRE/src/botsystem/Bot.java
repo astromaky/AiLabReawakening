@@ -9,6 +9,7 @@ public class Bot implements BotInterface{
 	Vector2 pos;
 	Vector2 dir;
 	Vector2 velocity;
+	double momentum;
 	double weight;
 	double totalWeight;
 	
@@ -41,8 +42,12 @@ public class Bot implements BotInterface{
 	public void addVelocity(Vector2 vel) {
 		velocity = velocity.add(vel);
 	}
+	public void addMomentum(double mom) {
+		momentum += mom/100;
+	}
 	public void move() {
 		pos = pos.add(velocity);
+		turnAroundMiddle(momentum);
 	}
 	
 	@Override
@@ -151,7 +156,7 @@ public class Bot implements BotInterface{
 			
 			centerOfMass.add(t.getPos().mult((t.getWeight()/totalWeight)));
 		}
-		System.out.println("CALC CENTER"+ centerOfMass);
+		
 		return centerOfMass;
 	}
 	
@@ -164,12 +169,17 @@ public class Bot implements BotInterface{
 		return center.div(getAllTrusters().size()+1);
 	}
 	public Vector2 getAbsoluteCenter() {
+		
+		
 		Vector2 center =pos;
+		System.out.println("DIVPRE"+center);
 		for (TrusterInterface t : getAllTrusters()) {
 			
 			center = center.add(t.getAbsolutePos());
 		}
+		System.out.println("DIV"+center);
 		return center.div(getAllTrusters().size()+1);
+		
 	}
 	
 	public Vector2 getAbsoluteCenterOfMass() {
@@ -179,10 +189,10 @@ public class Bot implements BotInterface{
 		centerOfMass = centerOfMass.add(pos.sub(subVec).mult((getWeight()/totalWeight)));
 		
 		for (TrusterInterface t : getAllTrusters()) {
-			
+			System.out.println("SUBVEC"+subVec);
 			centerOfMass = centerOfMass.add(t.getAbsolutePos().sub(subVec).mult((t.getWeight()/totalWeight)));
 		}
-		System.out.println("CALC CENTER"+ centerOfMass);
+		
 		return centerOfMass;
 	}
 	

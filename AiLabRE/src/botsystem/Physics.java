@@ -28,7 +28,7 @@ public class Physics {
 		
 		
 		
-		//calcTrust(bot);
+		calcTrust(bot);
 		
 		/*
 		for (TrusterInterface t : bot.getAllTrusters()) {
@@ -74,6 +74,9 @@ public class Physics {
 		double totalMass = bot.totalWeight;
 		Vector2 center = bot.getAbsoluteCenter();
 		Vector2 absCOM = bot.getAbsoluteCenterOfMass();
+		if (!center.equals(absCOM)) {
+			
+		
 		Vector2 aV = absCOM.sub(center).getNormalized();
 		Vector2 aV2 = aV.add(new Vector2(0,totalMass*gravity)).getNormalized();
 		double angle = Vector2.SignedAngle(aV, aV2);
@@ -81,8 +84,10 @@ public class Physics {
 			angle = 0;
 		}
 		System.out.println(angle);
-		bot.turnAroundMiddle(angle);
+		//bot.turnAroundMiddle(angle);
+		bot.addMomentum(angle);
 		//bot.turnAroundMiddle(1);
+		}
 		//bot.setPos(bot.getPos().add(new Vector2(0,totalMass*gravity)));
 		bot.addVelocity(new Vector2(0,totalMass*gravity));
 		
@@ -100,9 +105,26 @@ public class Physics {
 	
 	public static void calcTrust(Bot bot) {
 		//
+		double totalAngle = 0;
 		for (TrusterInterface t : bot.getAllTrusters()) {
 			
+			
+			Vector2 vel = t.getAbsoluteDirection().mult(-t.getCurrentTrust()*t.getMaxTrust());
+			Vector2 aV = t.getAbsolutePos().sub(bot.getAbsoluteCenterOfMass());
+			Vector2 aV2 = aV.add(vel).getNormalized();
+			double angle = Vector2.SignedAngle(aV, aV2);
+			if (Math.abs(angle) < 0.5) {
+				angle = 0;
+			}
+			System.out.println(angle);
+			totalAngle += angle;
+			//bot.turnAroundMiddle(1);
+			//bot.setPos(bot.getPos().add(new Vector2(0,totalMass*gravity)));
+			bot.addVelocity(vel);
 		}
+		
+		//bot.turnAroundMiddle(totalAngle);
+		bot.addMomentum(totalAngle);
 	}
 	
 	
