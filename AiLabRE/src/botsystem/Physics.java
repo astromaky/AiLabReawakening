@@ -8,8 +8,8 @@ public class Physics {
 	
 	
 	
-	public static double gravity = 0.02;
-	public static double inertia = 100;
+	public static double gravity = 0.5;
+	public static double inertia = 0.2;
 	
 	
 	
@@ -36,6 +36,12 @@ public class Physics {
 			centerOfMass.add(Vector2.mult(t.getPos(), t.getWeight()));
 		}
 		*/
+		
+		if (bot.getPos().getY() > 900) {
+			Vector2 pos = bot.getPos();
+			pos.setY(900);
+			bot.setPos(pos);
+		}
 		System.out.println(bot.getDir().getNormalized());
 		
 		
@@ -68,7 +74,7 @@ public class Physics {
 		Vector2 center = bot.getAbsoluteCenter();
 		Vector2 absCOM = bot.getAbsoluteCenterOfMass();
 		Vector2 aV = absCOM.sub(center).getNormalized();
-		Vector2 aV2 = aV.add(new Vector2(0,totalMass*gravity)).getNormalized();
+		Vector2 aV2 = aV.add(new Vector2(0,totalMass*gravity*inertia)).getNormalized();
 		double angle = Vector2.SignedAngle(aV, aV2);
 		if (Math.abs(angle) < 0.5) {
 			angle = 0;
@@ -77,6 +83,8 @@ public class Physics {
 		bot.turnAroundMiddle(angle);
 		//bot.turnAroundMiddle(1);
 		bot.setPos(bot.getPos().add(new Vector2(0,totalMass*gravity)));
+		
+		
 		
 		/*
 		System.out.println("totalMass"+totalMass);
