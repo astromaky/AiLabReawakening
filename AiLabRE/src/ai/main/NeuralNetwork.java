@@ -51,7 +51,6 @@ public class NeuralNetwork {
 	
 	public double[] doSth(double sum[]) {
 		
-		print();
 		double[] add = new double[sum.length+1];
 		for (int i = 0; i < sum.length;i++) {
 			add[i] = sum[i];
@@ -166,7 +165,7 @@ public class NeuralNetwork {
 		return s;
 	}
 	
-	
+	/*
 	public void print() {
 		for(int l=0;l<net.length;l++) {
 			for (int m=0;m<net[l].length;m++) {
@@ -177,5 +176,5 @@ public class NeuralNetwork {
 			}
 			System.out.println("");
 		}
-	}
+	}*/
 }
