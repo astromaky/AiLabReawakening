@@ -7,10 +7,10 @@ public class Physics {
 	
 	
 	
-	
-	public static double gravity = 0.2;
+	public static double vp = 0.1;
+	public static double gravity = 0.4;
 	public static double inertia = 0.5;
-	
+	public static double drag = 0.9;
 	
 	
 	
@@ -21,7 +21,7 @@ public class Physics {
 		
 		// CALC WEIGHT
 		
-		calcGravity(bot);
+	    calcGravity(bot);
 		
 		
 		// CALC TRUST
@@ -42,10 +42,30 @@ public class Physics {
 			Vector2 pos = bot.getPos();
 			pos.setY(900);
 			bot.setPos(pos);
+			if (bot.velocity.getY()>0) {
+				bot.velocity.setY(0);
+			}
 		}
-		System.out.println(bot.getDir().getNormalized());
 		
+		if (bot.getPos().getY() <100) {
+			Vector2 pos = bot.getPos();
+			pos.setY(100);
+			bot.setPos(pos);
+		}
 		
+		if (bot.getPos().getX() <100) {
+			Vector2 pos = bot.getPos();
+			pos.setX(100);
+			bot.setPos(pos);
+		}
+		
+		if (bot.getPos().getX() >900) {
+			Vector2 pos = bot.getPos();
+			pos.setX(900);
+			bot.setPos(pos);
+		}
+		bot.velocity = bot.velocity.mult(drag);
+		bot.momentum *=drag;
 	}
 	
 	
@@ -83,13 +103,13 @@ public class Physics {
 		if (Math.abs(angle) < 0.5) {
 			angle = 0;
 		}
-		System.out.println(angle);
+		
 		//bot.turnAroundMiddle(angle);
 		bot.addMomentum(angle);
 		//bot.turnAroundMiddle(1);
 		}
 		//bot.setPos(bot.getPos().add(new Vector2(0,totalMass*gravity)));
-		bot.addVelocity(new Vector2(0,totalMass*gravity));
+		bot.addVelocity(new Vector2(0,totalMass*gravity).mult(vp));
 		
 		
 		/*
@@ -116,11 +136,11 @@ public class Physics {
 			if (Math.abs(angle) < 0.5) {
 				angle = 0;
 			}
-			System.out.println(angle);
+			
 			totalAngle += angle;
 			//bot.turnAroundMiddle(1);
 			//bot.setPos(bot.getPos().add(new Vector2(0,totalMass*gravity)));
-			bot.addVelocity(vel);
+			bot.addVelocity(vel.mult(vp));
 		}
 		
 		//bot.turnAroundMiddle(totalAngle);

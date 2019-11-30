@@ -73,12 +73,21 @@ public class Truster implements TrusterInterface{
 
 	@Override
 	public void setMaxTrust(double trust) {
-		maxTrust = trust;		
+		
+			maxTrust = trust;	
+		
+			
 	}
 
 	@Override
 	public void setCurrentTrust(double trust) {
-		currentTrust = trust;
+		
+		if (trust > 1)
+			trust = 1;
+		if (trust < 0)
+			trust = 0;
+			currentTrust = trust;
+		
 	}
 
 	@Override

@@ -6,7 +6,7 @@ public class NeuralNetwork {
 	
 	private double net[][][];
 	private int inputs;
-	
+	private float rp = 0.1F;
 	public NeuralNetwork(int[] layer_matrix1) {
 		int index = 0;
 		int[] layer_matrix = new int[layer_matrix1.length];
@@ -81,7 +81,7 @@ public class NeuralNetwork {
 		for(int l=1;l<net.length;l++) {
 			for (int m=0;m<net[l].length;m++) {
 				for (int i=0;i <net[l][m].length;i++) {
-					net[l][m][i] = net[l][m][i]+(errorWeight(l, m, i, out, in)*0.1);
+					net[l][m][i] = net[l][m][i]+(errorWeight(l, m, i, out, in)*rp);
 				}
 				
 			}

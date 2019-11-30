@@ -16,7 +16,7 @@ public class SaveUtils {
 	private static NeuralNetwork net;
 	
 	public static NeuralNetwork getNeuralNet() {
-		if (net != null) {
+		if (net == null) {
 			load();
 		}
 		return net;

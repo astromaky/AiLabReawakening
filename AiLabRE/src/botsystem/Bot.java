@@ -40,7 +40,10 @@ public class Bot implements BotInterface{
 	}
 
 	public void addVelocity(Vector2 vel) {
-		velocity = velocity.add(vel);
+		if (velocity.add(vel).magnitude()< 100) {
+			velocity = velocity.add(vel);
+		}
+		System.out.println("VEL"+velocity.magnitude());
 	}
 	public void addMomentum(double mom) {
 		momentum += mom/100;
@@ -160,6 +163,10 @@ public class Bot implements BotInterface{
 		return centerOfMass;
 	}
 	
+	public double getAngle() {
+		return Vector2.SignedAngle(dir, new Vector2(0,1));
+	}
+	
 	public Vector2 getCenter() {
 		Vector2 center = new  Vector2(0,0);
 		for (TrusterInterface t : getAllTrusters()) {
@@ -172,12 +179,10 @@ public class Bot implements BotInterface{
 		
 		
 		Vector2 center =pos;
-		System.out.println("DIVPRE"+center);
 		for (TrusterInterface t : getAllTrusters()) {
 			
 			center = center.add(t.getAbsolutePos());
 		}
-		System.out.println("DIV"+center);
 		return center.div(getAllTrusters().size()+1);
 		
 	}
@@ -186,10 +191,11 @@ public class Bot implements BotInterface{
 		Vector2 subVec = getAbsoluteCenter();
 		Vector2 centerOfMass = getAbsoluteCenter();
 		
+		
 		centerOfMass = centerOfMass.add(pos.sub(subVec).mult((getWeight()/totalWeight)));
 		
 		for (TrusterInterface t : getAllTrusters()) {
-			System.out.println("SUBVEC"+subVec);
+			
 			centerOfMass = centerOfMass.add(t.getAbsolutePos().sub(subVec).mult((t.getWeight()/totalWeight)));
 		}
 		

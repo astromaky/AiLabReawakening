@@ -81,7 +81,9 @@ public class Vector2 {
 	public Vector2 getNormalized() {
 		
 		Vector2 re = clone();
-	
+		if (re.equals(new Vector2(0,0))) {
+			return re;
+		}
 		return 	re.mult( 1/magnitude());
 				
 	}
