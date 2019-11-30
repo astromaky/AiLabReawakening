@@ -8,8 +8,8 @@ public class Physics {
 	
 	
 	
-	public static double gravity = 0.5;
-	public static double inertia = 0.2;
+	public static double gravity = 0.02;
+	public static double inertia = 0.5;
 	
 	
 	
@@ -36,6 +36,7 @@ public class Physics {
 			centerOfMass.add(Vector2.mult(t.getPos(), t.getWeight()));
 		}
 		*/
+		bot.move();
 		
 		if (bot.getPos().getY() > 900) {
 			Vector2 pos = bot.getPos();
@@ -74,7 +75,7 @@ public class Physics {
 		Vector2 center = bot.getAbsoluteCenter();
 		Vector2 absCOM = bot.getAbsoluteCenterOfMass();
 		Vector2 aV = absCOM.sub(center).getNormalized();
-		Vector2 aV2 = aV.add(new Vector2(0,totalMass*gravity*inertia)).getNormalized();
+		Vector2 aV2 = aV.add(new Vector2(0,totalMass*gravity)).getNormalized();
 		double angle = Vector2.SignedAngle(aV, aV2);
 		if (Math.abs(angle) < 0.5) {
 			angle = 0;
@@ -82,8 +83,8 @@ public class Physics {
 		System.out.println(angle);
 		bot.turnAroundMiddle(angle);
 		//bot.turnAroundMiddle(1);
-		bot.setPos(bot.getPos().add(new Vector2(0,totalMass*gravity)));
-		
+		//bot.setPos(bot.getPos().add(new Vector2(0,totalMass*gravity)));
+		bot.addVelocity(new Vector2(0,totalMass*gravity));
 		
 		
 		/*
@@ -99,6 +100,9 @@ public class Physics {
 	
 	public static void calcTrust(Bot bot) {
 		//
+		for (TrusterInterface t : bot.getAllTrusters()) {
+			
+		}
 	}
 	
 	

@@ -20,10 +20,10 @@ public class Main {
 	
 	public static void main(String args[]) {
 		SaveUtils.load();
-		Bot bot = new Bot(new Vector2(550, 500), new Vector2(0), 10);
+		Bot bot = new Bot(new Vector2(550, 500), new Vector2(0), 1);
 		
 		bot.addTruster(new Truster(new Vector2(50, 50), new Vector2(0), 1,5));
-		
+		bot.addTruster(new Truster(new Vector2(-50, 50), new Vector2(0), 1,5));
 		BotScreen bs = new BotScreen(bot);
 		JFrame f = new JFrame(TITLE);
 		f.add(bs);

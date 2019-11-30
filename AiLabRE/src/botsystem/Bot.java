@@ -8,6 +8,7 @@ public class Bot implements BotInterface{
 	
 	Vector2 pos;
 	Vector2 dir;
+	Vector2 velocity;
 	double weight;
 	double totalWeight;
 	
@@ -19,6 +20,7 @@ public class Bot implements BotInterface{
 		this.dir = dir;
 		this.weight = weight;
 		totalWeight = calcTotalWeight();
+		velocity = new Vector2(0,0);
 		
 	}
 	
@@ -36,7 +38,12 @@ public class Bot implements BotInterface{
 		
 	}
 
-	
+	public void addVelocity(Vector2 vel) {
+		velocity = velocity.add(vel);
+	}
+	public void move() {
+		pos = pos.add(velocity);
+	}
 	
 	@Override
 	public Vector2 getPos() {

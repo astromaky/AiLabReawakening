@@ -86,4 +86,11 @@ public class Truster implements TrusterInterface{
 		this.weight = weight;
 	}
 
+
+
+	@Override
+	public Vector2 getAbsoluteDirection() {
+		return Vector2.turnDeg(dir,Vector2.SignedAngle(bot.getDir(), new Vector2(0,1)));
+	}
+
 }

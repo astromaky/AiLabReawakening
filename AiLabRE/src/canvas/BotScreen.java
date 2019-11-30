@@ -34,6 +34,7 @@ public class BotScreen extends Canvas {
 		g2d.setColor(Color.blue);
 		g2d.fillOval((int)bot.getAbsoluteCenterOfMass().getX() - 10, (int)bot.getAbsoluteCenterOfMass().getY() - 10, 20,20);
 		g2d.setColor(Color.red);
+		drawLine(g2d,new Vector2(0,900), new Vector2(1000,900));
 		drawLine(g2d,Vector2.add( bot.getPos(), bot.getDir().getNormalized().mult(-RAD)),Vector2.add( bot.getPos(), bot.getDir().getNormalized().mult(RAD)));
 		for (TrusterInterface t : bot.getAllTrusters()) {
 			Vector2 pos = t.getAbsolutePos();
