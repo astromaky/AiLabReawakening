@@ -43,6 +43,7 @@ public class Main {
 		
 		new Runnable(0, 1) {
 			Vector2 lastPos = new Vector2(2000,2000);
+			double lastAngle = 0;
 			@Override
 			public void run() {
 				double[] input = new double[] {(Vector2.SignedAngle(bot.getDir(), new Vector2(0,1))+180)/360};
@@ -50,7 +51,9 @@ public class Main {
 				double[] res = SaveUtils.getNeuralNet().doSth(input);
 				bot.getTruster(0).setCurrentTrust(res[0]);
 				bot.getTruster(1).setCurrentTrust(res[1]);
-				kno.add(new KnoContainer(input, res));
+				KnoContainer kc = new KnoContainer(input, res);
+				kc.bk = bot.getAngle();
+				kno.add(kc);
 				
 				
 				bs.paint(bs.getGraphics());
@@ -140,6 +143,7 @@ public class Main {
 							double[] plsRes2 = new double[] {r.nextDouble(),r.nextDouble()};
 							SaveUtils.getNeuralNet().train(k.in, plsRes2);
 						}else {
+							
 							SaveUtils.getNeuralNet().train(k.in, k.res);
 						}
 						
@@ -180,6 +184,7 @@ public class Main {
 				
 				System.out.println("R1:"+res[0]+" R2:"+res[1]);
 				lastPos = bot.getPos();
+				lastAngle = bot.getAngle();
 			}
 		};
 	}
