@@ -15,9 +15,9 @@ public class Vector2 {
 	}
 
 	public Vector2(double angle) {
-		x = 0;
-		y = 1;
-		turnDeg(this, angle);
+		Vector2 v = turnDeg(new Vector2(0, 1), angle);
+		x = v.getX();
+		y = v.getY();
 	}
 	
 	
