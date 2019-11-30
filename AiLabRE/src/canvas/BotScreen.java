@@ -39,7 +39,7 @@ public class BotScreen extends Canvas {
 		for (TrusterInterface t : bot.getAllTrusters()) {
 			Vector2 pos = t.getAbsolutePos();
 			//Vector2 ruler = Vector2.turnDeg(new Vector2(0, SQR), Vector2.getAngle(new Vector2(0, 1),t.getDirection()));
-			Vector2 ruler = t.getDirection().getNormalized().mult(SQR);
+			Vector2 ruler = t.getAbsoluteDirection().getNormalized().mult(SQR);
 			drawLine(g2d,pos, Vector2.add(pos ,ruler));
 			drawLine(g2d,Vector2.add(pos ,Vector2.turnDeg(ruler, -30)), Vector2.add(pos ,Vector2.turnDeg(ruler, -30)));
 			drawLine(g2d,Vector2.add(pos ,Vector2.turnDeg(ruler, -30)), Vector2.add(pos ,Vector2.turnDeg(ruler, -30)));
