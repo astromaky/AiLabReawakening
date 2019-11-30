@@ -8,7 +8,7 @@ public class Physics {
 	
 	
 	
-	public static double gravity = 0.02;
+	public static double gravity = 0.2;
 	public static double inertia = 0.5;
 	
 	

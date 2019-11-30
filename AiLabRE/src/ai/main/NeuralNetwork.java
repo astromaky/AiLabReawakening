@@ -7,7 +7,13 @@ public class NeuralNetwork {
 	private double net[][][];
 	private int inputs;
 	
-	public NeuralNetwork(int[] layer_matrix) {
+	public NeuralNetwork(int[] layer_matrix1) {
+		int index = 0;
+		int[] layer_matrix = new int[layer_matrix1.length];
+		for (int i : layer_matrix1) {
+			layer_matrix[index] = i;
+			index ++;
+		}
 		layer_matrix[0] = layer_matrix[0]+1;
 		inputs = layer_matrix[0];
 		net = new double[layer_matrix.length][][];
@@ -45,6 +51,7 @@ public class NeuralNetwork {
 	
 	public double[] doSth(double sum[]) {
 		
+		print();
 		double[] add = new double[sum.length+1];
 		for (int i = 0; i < sum.length;i++) {
 			add[i] = sum[i];
@@ -159,7 +166,7 @@ public class NeuralNetwork {
 		return s;
 	}
 	
-	/*
+	
 	public void print() {
 		for(int l=0;l<net.length;l++) {
 			for (int m=0;m<net[l].length;m++) {
@@ -170,5 +177,5 @@ public class NeuralNetwork {
 			}
 			System.out.println("");
 		}
-	}*/
+	}
 }

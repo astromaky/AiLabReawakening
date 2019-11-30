@@ -12,7 +12,7 @@ import ai.main.NeuralNetwork;
 public class SaveUtils {
 	
 	private final static String PATH = "theOne.net";
-	private final static int[] STRUCT = {4,4,4};
+	private final static int[] STRUCT = {1,5,5,2};
 	private static NeuralNetwork net;
 	
 	public static NeuralNetwork getNeuralNet() {
@@ -25,11 +25,13 @@ public class SaveUtils {
 	public static void load() {
 		File f = new File(PATH);
 		try {
+			System.out.println("Loading File");
 			Scanner s = new Scanner(f);
 			net = new NeuralNetwork(s.next());
 			s.close();
 		} catch (FileNotFoundException e) {
 			net = new NeuralNetwork(STRUCT);
+			System.out.println("Generating new");
 		}
 	}
 	
