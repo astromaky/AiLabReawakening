@@ -79,29 +79,31 @@ public class Main {
 					SaveUtils.getNeuralNet().train(input, plsRes);
 				}
 				if (res[0]<0 && res[1]<0) {
-				
-					
+					SaveUtils.load();
+					/*
 					double[] plsRes = new double[] {0,0};
 					SaveUtils.getNeuralNet().train(input, plsRes);
 					SaveUtils.getNeuralNet().train(input, plsRes);
 					SaveUtils.getNeuralNet().train(input, plsRes);
+					*/
 				}
 				else if (res[0]<0) {
-					
+					SaveUtils.load();
+					/*
 					double[] plsRes = new double[] {0,res[1]};
 					SaveUtils.getNeuralNet().train(input, plsRes);
 					SaveUtils.getNeuralNet().train(input, plsRes);
 					SaveUtils.getNeuralNet().train(input, plsRes);
-					
+					*/
 				}
 				else if (res[1]<0) {
-					
-				
+					SaveUtils.load();
+					/*
 					double[] plsRes = new double[] {res[0],0};
 					SaveUtils.getNeuralNet().train(input, plsRes);
 					SaveUtils.getNeuralNet().train(input, plsRes);
 					SaveUtils.getNeuralNet().train(input, plsRes);
-					
+					*/
 				}
 				
 				//
@@ -124,31 +126,33 @@ public class Main {
 				
 				if (bot.getPos().distance(new Vector2(500,500))>390) {
 					System.out.println("- Bestrafung -");
+					/*
 					Random r = new Random();
 					double[] plsRes = new double[] {r.nextDouble(),r.nextDouble()};
 					SaveUtils.getNeuralNet().train(input, plsRes);
 					SaveUtils.getNeuralNet().train(input, plsRes);
-					SaveUtils.getNeuralNet().train(input, plsRes);
+					SaveUtils.getNeuralNet().train(input, plsRes);*/
 					bot.setPos(new Vector2(500,500));
 					bot.setDir(new Vector2(0,1));
 					
-					int index = 0;
-					for (KnoContainer k : kno) {
+					int cut = 30;
+					int smartEcho = 40;
+					for (int index = kno.size()-1;index >= 0;index--) {
 						
 						
+						KnoContainer k = kno.get(index);
 						
-						
-						if (index > kno.size()-50) {
+						if (index > kno.size()-cut) {
 							
-							double[] plsRes2 = new double[] {r.nextDouble(),r.nextDouble()};
-							SaveUtils.getNeuralNet().train(k.in, plsRes2);
-						}else {
+							/*double[] plsRes2 = new double[] {r.nextDouble(),r.nextDouble()};
+							SaveUtils.getNeuralNet().train(k.in, plsRes2);*/
+						}else if (!(index < cut)) {
 							
-							SaveUtils.getNeuralNet().train(k.in, k.res);
+							for (int i = 0;i < (/*kno.size()-index / smartEcho*/1);i++) {
+								SaveUtils.getNeuralNet().train(k.in, k.res);
+							}
+							
 						}
-						
-						
-						index++;
 						
 						
 						
@@ -162,26 +166,45 @@ public class Main {
 				if (bot.getPos().distance(new Vector2(500,500))<100) {
 					System.out.println("+ Belohnung +");
 					SaveUtils.getNeuralNet().train(input, res);
+					SaveUtils.getNeuralNet().train(input, res);
+					SaveUtils.getNeuralNet().train(input, res);
 				}
 				
 				if (bot.getPos().getY()<500) {
 					SaveUtils.getNeuralNet().train(input, res);
+					SaveUtils.getNeuralNet().train(input, res);
+					SaveUtils.getNeuralNet().train(input, res);
 				}
 				if (bot.getPos().getY()<300) {
 					Random r = new Random();
-					double[] plsRes = new double[] {0,0};
+					double[] plsRes = new double[] {0.2,0.2};
 					SaveUtils.getNeuralNet().train(input, plsRes);
-				
-					
 				}
+				
 				if (bot.getPos().getY()>700) {
 					Random r = new Random();
 					double[] plsRes = new double[] {r.nextDouble(),r.nextDouble()};
 					SaveUtils.getNeuralNet().train(input, plsRes);
-					
-					
 				}
 				
+				
+				
+				
+				double man = 0.0001;
+				if (bot.getPos().getX()<300) {
+					double[] plsRes = new double[] {res[0]*(1-man),res[1]*(1+man)};
+					SaveUtils.getNeuralNet().train(input, plsRes);
+				}
+				if (bot.getPos().getX()>700) {
+					double[] plsRes = new double[] {res[0]*(1+man),res[1]*(1-man)};
+					SaveUtils.getNeuralNet().train(input, plsRes);
+				}
+				
+				if (bot.getPos().getY()>700) {
+					Random r = new Random();
+					double[] plsRes = new double[] {res[0]*(1+(man+res[1]*man)/2),res[1]*(1+(man+res[0]*man)/2)};
+					SaveUtils.getNeuralNet().train(input, plsRes);
+				}
 				System.out.println("R1:"+res[0]+" R2:"+res[1]);
 				lastPos = bot.getPos();
 				lastAngle = bot.getAngle();
