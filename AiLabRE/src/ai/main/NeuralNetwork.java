@@ -165,6 +165,12 @@ public class NeuralNetwork {
 		return s;
 	}
 	
+	
+	
+
+
+	
+	
 	/*
 	public void print() {
 		for(int l=0;l<net.length;l++) {

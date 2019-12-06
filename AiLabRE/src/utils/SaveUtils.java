@@ -12,7 +12,7 @@ import ai.main.NeuralNetwork;
 public class SaveUtils {
 	
 	private final static String PATH = "theOne.net";
-	private final static int[] STRUCT = {1,5,5,2};
+	private final static int[] STRUCT = {3,5,5,2};
 	private static NeuralNetwork net;
 	
 	public static NeuralNetwork getNeuralNet() {

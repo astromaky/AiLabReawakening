@@ -43,7 +43,7 @@ public class Bot implements BotInterface{
 		if (velocity.add(vel).magnitude()< 100) {
 			velocity = velocity.add(vel);
 		}
-		System.out.println("VEL"+velocity.magnitude());
+		//System.out.println("VEL"+velocity.magnitude());
 	}
 	public void addMomentum(double mom) {
 		momentum += mom/100;
@@ -53,6 +53,10 @@ public class Bot implements BotInterface{
 		turnAroundMiddle(momentum);
 	}
 	
+	public void resetVelocity() {
+		velocity = new Vector2(0,0);
+		momentum = 0;
+	}
 	@Override
 	public Vector2 getPos() {
 		
@@ -82,6 +86,7 @@ public class Bot implements BotInterface{
 		return weight;
 	}
 
+	
 	@Override
 	public void setWeight(double d) {
 		weight = d;
@@ -202,5 +207,10 @@ public class Bot implements BotInterface{
 		return centerOfMass;
 	}
 	
-
+	public Vector2 getVelocity() {
+		return velocity;
+	}
+	public double getMomentum() {
+		return momentum;
+	}
 }

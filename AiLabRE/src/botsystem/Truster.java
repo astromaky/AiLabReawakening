@@ -88,6 +88,7 @@ public class Truster implements TrusterInterface{
 			trust = 0;
 			currentTrust = trust;
 		
+			
 	}
 
 	@Override
