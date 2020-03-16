@@ -50,7 +50,7 @@ public class Main {
 		new Runnable(0, 1) {
 			Vector2 lastPos = new Vector2(2000,2000);
 			double lastAngle = 0;
-			Trainer trainer = new TrainerJojo(bot);
+			Trainer trainer = new TrainerJoe(bot);
 			@Override
 			public void run() {
 				double[] input = new double[] {(Vector2.SignedAngle(bot.getDir(), new Vector2(0,1))+180)/360,bot.getPos().getY()/1000,bot.getPos().getX()/1000};
