@@ -46,6 +46,7 @@ public class Main {
 		f.setEnabled(true);
 		f.pack();
 		
+		//Smoething
 		
 		new Runnable(0, 1) {
 			Vector2 lastPos = new Vector2(2000,2000);
