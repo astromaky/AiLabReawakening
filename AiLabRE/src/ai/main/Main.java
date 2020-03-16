@@ -33,8 +33,8 @@ public class Main {
 		SaveUtils.load();
 		Bot bot = new Bot(new Vector2(500, 500), new Vector2(0), 1);
 		
-		bot.addTruster(new Truster(new Vector2(50, 0), new Vector2(0,1), 2,5));
-		bot.addTruster(new Truster(new Vector2(-50, 0), new Vector2(0,1), 2,5));
+		bot.addTruster(new Truster(new Vector2(50, 0), new Vector2(0,1), 10,5));
+		bot.addTruster(new Truster(new Vector2(-50, 0), new Vector2(0,1), 10,5));
 		bot.setDir(new Vector2(0,1));
 		BotScreen bs = new BotScreen(bot);
 		JFrame f = new JFrame(TITLE);
@@ -50,7 +50,7 @@ public class Main {
 		new Runnable(0, 1) {
 			Vector2 lastPos = new Vector2(2000,2000);
 			double lastAngle = 0;
-			Trainer trainer = new TrainerJojo(bot);
+			Trainer trainer = new TrainerJoe(bot);
 			@Override
 			public void run() {
 				double[] input = new double[] {(Vector2.SignedAngle(bot.getDir(), new Vector2(0,1))+180)/360,bot.getPos().getY()/1000,bot.getPos().getX()/1000};
