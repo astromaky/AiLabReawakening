@@ -4,13 +4,15 @@ import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.image.BufferedImage;
 
 import botsystem.Bot;
 import botsystem.TrusterInterface;
 import utils.Vector2;
 
-public class BotScreen extends Canvas {
+public class BotScreen extends Canvas implements KeyListener{
 	
 	private static final int RAD = 10;
 	private static final int SQR = 10;
@@ -52,6 +54,9 @@ public class BotScreen extends Canvas {
 			drawLine(g2d,Vector2.add(Vector2.add(bot.getPos().mult(-1),top).getNormalized().mult(RAD), bot.getPos() ), top);
 		}
 		g.drawImage(bi, 0, 0, null);
+		
+		
+		
 	}
 	
 	private void drawLine(Graphics2D g2d, Vector2 v1,Vector2 v2) {
@@ -60,5 +65,28 @@ public class BotScreen extends Canvas {
 
 	private void drawOval(Graphics2D g2d, Vector2 v1,double rad) {
 		g2d.drawOval((int)(v1.getX()-rad) , (int)(v1.getY()-rad), (int)rad*2 , (int)rad*2);
+	}
+
+	@Override
+	public void keyTyped(KeyEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+	public static boolean qPressed = false;
+	@Override
+	public void keyPressed(KeyEvent e) {
+		// TODO Auto-generated method stub
+		if (e.getKeyChar() =='q') {
+			qPressed = true;
+		}
+		
+	}
+
+	@Override
+	public void keyReleased(KeyEvent e) {
+		// TODO Auto-generated method stub
+		if (e.getKeyChar() =='q') {
+			qPressed = false;
+		}
 	}
 }
